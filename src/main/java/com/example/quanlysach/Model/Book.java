@@ -39,6 +39,5 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name ="category_id")
-    @ValidCategoryId
     private Category category;
 }

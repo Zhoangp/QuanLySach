@@ -3,12 +3,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="_layout">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
 <div class="container" layout:fragment="content">
-  <h1 class="text-center mt-4">Add Book</h1>
+  <h1 class="text-center mt-4">Edit Book</h1>
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <div class="card">
@@ -20,20 +20,28 @@
             <input type="hidden" th:field="*{id}">
             <div class="form-group">
               <label for="title">Title:</label>
-              <input th:field="*{title}" type="text" class="form-control" id="title" placeholder="Enter title" required>
+              <input th:field="*{title}" type="text" class="form-control" id="title" placeholder="Enter title">
+              <small th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="form-text text-danger"></small>
             </div>
             <div class="form-group">
               <label for="author">Author:</label>
-              <input th:field="*{author}" type="text" class="form-control" id="author" placeholder="Enter author" required>
+              <input th:field="*{author}" type="text" class="form-control" id="author" placeholder="Enter author">
+              <small th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="form-text text-danger"></small>
+
             </div>
             <div class="form-group">
               <label for="price">Price:</label>
-              <input th:field="*{price}" type="number" class="form-control" id="price" placeholder="Enter price" required>
+              <input th:field="*{price}" type="number" class="form-control" id="price" placeholder="Enter price">
+              <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="form-text text-danger"></small>
+
             </div>
             <div class="form-group">
               <label for="category">Category:</label>
-              <input th:field="*{category}" type="text" class="form-control" id="category" placeholder="Enter category" required>
+              <select  type="text" class="form-control" id="category" name="category.id" placeholder="Enter category">
+                <option th:selected="${cate.id} == *{category.id}" th:each="cate : ${listCategory}" th:value="${cate.id}" th:text="${cate.getName()}"></option>
+              </select>
             </div>
+
             <div class="text-center">
               <button type="submit" class="btn btn-primary">Save</button>
             </div>
@@ -43,6 +51,5 @@
     </div>
   </div>
 </div>
-
 </body>
 </html>

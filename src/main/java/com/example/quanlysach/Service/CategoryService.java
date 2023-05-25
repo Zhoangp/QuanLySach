@@ -12,12 +12,23 @@ import java.util.List;
 public class CategoryService {
     @Autowired
     private CategoryRepo categoryRepo;
-    public List<Category> getAllBook() {
+    public List<Category> getAllCategories() {
         return categoryRepo.findAll();
     }
     public void addCategory(String name) {
         Category category = new Category();
         category.setName(name);
     categoryRepo.save(category);
+    }
+    public Category getCategory(Long id) {
+       return categoryRepo.findById(id).orElse(null);
+    }
+    public void remove(Long id) {
+        categoryRepo.deleteById(id);
+    }
+    public void updateCategory(Category newCategory) {
+        var cate = getCategory(newCategory.getId());
+        cate.setName(newCategory.getName());
+        categoryRepo.save(cate);
     }
 }

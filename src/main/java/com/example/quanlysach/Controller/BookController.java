@@ -28,6 +28,8 @@ public class BookController {
 
     @Autowired
     private CategoryService categoryService;
+
+
     @GetMapping("/")
     public String Home(Model model) {
         List<Book> books = bookService.getAllBook();
@@ -37,17 +39,39 @@ public class BookController {
     @GetMapping("/book/create")
     public String CreateBook(Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("listCategory", categoryService.getAllBook());
+        model.addAttribute("listCategory", categoryService.getAllCategories());
         return "book/create";
     }
     @PostMapping("/book/create")
     public String CreateBook(@Valid Book book, BindingResult res, Model model) throws IOException {
         if(res.hasErrors()) {
             model.addAttribute("book", book);
-            model.addAttribute("listCategory", categoryService.getAllBook());
+            model.addAttribute("listCategory", categoryService.getAllCategories());
             return "book/create";
         }
         bookService.addBook(book);
+        return "redirect:/";
+    }
+    @PostMapping("/book/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        bookService.removeBook(id);
+        return "redirect:/";
+    }
+    @PostMapping("/book/edit/{id}")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        var book = bookService.getBook(id);
+        model.addAttribute("book", book);
+        model.addAttribute("listCategory", categoryService.getAllCategories());
+        return "book/edit";
+    }
+    @PostMapping("/book/edit")
+    public String edit(Model model,@Valid Book newBook, BindingResult res) {
+        if(res.hasErrors()) {
+            model.addAttribute("book", newBook);
+            model.addAttribute("listCategory", categoryService.getAllCategories());
+            return "book/edit";
+        }
+        bookService.update(newBook);
         return "redirect:/";
     }
 }

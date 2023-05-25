@@ -40,13 +40,17 @@
               <label for="category">Category:</label>
               <p id="category" th:text="${book.category.getName()}"></p>
             </div>
-            <div class="text-center">
-              <button class="btn btn-primary">
-                <a style="color: white;text-underline: none" id="edit" th:href="@{/book/edit/{id}(id=${book.id})}">Edit</a>
-              </button>
-                <button type="submit" class="btn btn-danger">
-                  <a style="color: white; text-underline: none" id="delete" th:href="@{/book/delete/{id}(id=${book.id})}">Delete</a>
+            <div class="text-center" style="display:flex;justify-content:space-around">
+              <form th:action="@{/book/edit/{id}(id=${book.id})}" method="post">
+                <button class="btn btn-primary" type="submit">
+                  Edit
                 </button>
+              </form>
+              <form th:action="@{/book/delete/{id}(id=${book.id})}" method="post">
+                <button onclick="return confirm('Có muốn chắc là xóa hơm?')" class="btn btn-danger" type="submit">
+                  Delete
+                </button>
+              </form>
             </div>
           </div>
         </div>
