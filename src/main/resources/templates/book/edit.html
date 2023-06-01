@@ -27,13 +27,11 @@
               <label for="author">Author:</label>
               <input th:field="*{author}" type="text" class="form-control" id="author" placeholder="Enter author">
               <small th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="form-text text-danger"></small>
-
             </div>
             <div class="form-group">
               <label for="price">Price:</label>
               <input th:field="*{price}" type="number" class="form-control" id="price" placeholder="Enter price">
               <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="form-text text-danger"></small>
-
             </div>
             <div class="form-group">
               <label for="category">Category:</label>
@@ -41,7 +39,6 @@
                 <option th:selected="${cate.id} == *{category.id}" th:each="cate : ${listCategory}" th:value="${cate.id}" th:text="${cate.getName()}"></option>
               </select>
             </div>
-
             <div class="text-center">
               <button type="submit" class="btn btn-primary">Save</button>
             </div>

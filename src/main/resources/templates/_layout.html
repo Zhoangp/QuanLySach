@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -17,14 +20,20 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a class="nav-link" th:href="@{/}">Home</a>
-
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/book/create}">Add Book</a>
+        <a sec:authorize="isAuthenticated()"  class="nav-link" th:href="@{/book/create}">Add Book</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/category}">Category</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/category}">Category</a>
       </li>
+      <li sec:authorize="!isAuthenticated()">
+                <a sec:authorize="isAnonymous()" th:href="@{/login}" class="nav-link">Login</a>
+            </li>
+      <li sec:authorize="isAuthenticated()">
+                <span sec:authentication="name"></span> |
+                <a sec:logout th:href="@{/logout}" class="nav-link">Logout</a>
+            </li>
     </ul>
   </div>
 </nav>

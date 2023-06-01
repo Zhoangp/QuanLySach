@@ -18,7 +18,7 @@ public class CategoryService {
     public void addCategory(String name) {
         Category category = new Category();
         category.setName(name);
-    categoryRepo.save(category);
+        categoryRepo.save(category);
     }
     public Category getCategory(Long id) {
        return categoryRepo.findById(id).orElse(null);
@@ -27,8 +27,6 @@ public class CategoryService {
         categoryRepo.deleteById(id);
     }
     public void updateCategory(Category newCategory) {
-        var cate = getCategory(newCategory.getId());
-        cate.setName(newCategory.getName());
-        categoryRepo.save(cate);
+        categoryRepo.save(newCategory);
     }
 }

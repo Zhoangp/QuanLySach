@@ -28,6 +28,7 @@ public class CategoryController {
     @PostMapping("/category/create")
     public String create(@Valid Category category, BindingResult res, Model model) {
         if(res.hasErrors()) {
+            model.addAttribute("cateEdit", new Category());
             model.addAttribute("category", category);
             model.addAttribute("listCategory", categoryService.getAllCategories());
             return "category/categories";
@@ -37,7 +38,7 @@ public class CategoryController {
 
     }
     @PostMapping("/category/delete/{id}")
-    public String deleteCategory(@PathVariable("id") Long id, Model model) {
+    public String deleteCategory(@PathVariable("id") Long id) {
             categoryService.remove(id);
             return "redirect:/category";
     }

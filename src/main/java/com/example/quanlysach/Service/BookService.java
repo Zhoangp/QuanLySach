@@ -24,11 +24,6 @@ public class BookService {
         bookRepo.deleteById(id);
     }
     public void update(Book newBook) {
-        var book = getBook(newBook.getId());
-        book.setAuthor(newBook.getAuthor());
-        book.setCategory(newBook.getCategory());
-        book.setTitle(newBook.getTitle());
-        book.setPrice(newBook.getPrice());
-        bookRepo.save(book);
+        bookRepo.save(newBook);
     }
 }
